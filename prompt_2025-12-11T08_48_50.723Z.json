@@ -1,0 +1,55 @@
+import React from 'react';
+import { 
+  Cpu, 
+  PenTool, 
+  Sprout, 
+  Book, 
+  Briefcase, 
+  Activity,
+  HeartPulse,
+  Leaf,
+  Atom,
+  Building2,
+  Globe
+} from 'lucide-react';
+
+// A mapping of keywords found in sectors to an icon.
+// The first match in the array determines the icon.
+export const SECTOR_ICON_MAP: { [key: string]: React.ElementType } = {
+  'default': Activity,
+  'technology': Cpu,
+  'tech': Cpu,
+  'innovation': Cpu,
+  'energy': Leaf,
+  'sustainability': Leaf,
+  'environment': Leaf,
+  'efficiency': Leaf,
+  'arts': PenTool,
+  'culture': PenTool,
+  'agriculture': Sprout,
+  'farm': Sprout,
+  'education': Book,
+  'school': Book,
+  'business': Briefcase,
+  'msme': Briefcase,
+  'research': Atom,
+  'science': Atom,
+  'healthcare': HeartPulse,
+  'biotechnology': HeartPulse,
+  'social': Globe,
+  'civic': Globe,
+  'rural': Building2
+};
+
+export const getIconForSectors = (sectors: string[]): React.ElementType => {
+  if (!sectors || sectors.length === 0) {
+    return SECTOR_ICON_MAP['default'];
+  }
+  const lowerSectors = sectors.map(s => s.toLowerCase());
+  for (const keyword in SECTOR_ICON_MAP) {
+    if (lowerSectors.some(sector => sector.includes(keyword))) {
+      return SECTOR_ICON_MAP[keyword];
+    }
+  }
+  return SECTOR_ICON_MAP['default'];
+};
